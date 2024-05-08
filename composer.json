@@ -1,0 +1,17 @@
+{
+    "name": "mastercraft/aapanel-php-sdk",
+    "description": "PHP SDK for aaPanel API",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mastercraft\\AapanelPhpSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "IAmMasterCraft",
+            "email": "bolu.akinsefunmi@gmail.com"
+        }
+    ],
+    "require": {}
+}
