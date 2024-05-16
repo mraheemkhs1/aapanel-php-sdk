@@ -1,6 +1,6 @@
 <?php
 
-namespace aaPanelSDK\Exception;
+namespace AaPanelSDK\Exception;
 
 use Exception;
 
