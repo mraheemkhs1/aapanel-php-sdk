@@ -1,47 +1,44 @@
 <?php
 namespace AaPanelSDK;
 
+use \GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use \GuzzleHttp\Cookie\CookieJar;
+use aaPanelSDK\Authentication\TokenManager;
+use aaPanelSDK\Exception\APIException;
 
 class AaPanelClient {
-    private $apiKey;
-    // private $baseUri;
+    private $tokenManager;
     private $client;
     private $cookieJar;
 
     public function __construct($baseUri, $apiKey)
     {
-        $this->apiKey = $apiKey;
-        // $this->baseUri = $baseUri;
+        $this->tokenManager = new TokenManager($apiKey);
         $this->client = new Client(['base_uri' => $baseUri]);
         $this->cookieJar = new CookieJar();
     }
 
-    private function generateToken()
+    public function post($urlKey, $data = [])
     {
-        $requestTime = time();
-        $requestToken = md5($requestTime . md5($this->apiKey));
-        return [
-            'request_time' => $requestTime,
-            'request_token' => $requestToken
-        ];
-    }
-
-    public function post($uri, $data = [])
-    {
-        $auth = $this->generateToken();
+        $auth = $this->tokenManager->generateToken();
         $data = array_merge($data, $auth);
+        $url = ApiEndpointsManager::getURL($urlKey);
 
         try {
-            $response = $this->client->post($uri, [
+            $response = $this->client->post($url, [
                 'form_params' => $data,
                 'cookies' => $this->cookieJar
             ]);
-            return json_decode($response->getBody(), true);
+            $responseBody = json_decode($response->getBody(), true);
+
+            if (isset($responseBody['error'])) {
+                throw new APIException($responseBody['error']);
+            }
+
+            return $responseBody;
         } catch (RequestException $e) {
-            return ['error' => $e->getMessage()];
+            throw new APIException($e->getMessage());
         }
     }
 }
