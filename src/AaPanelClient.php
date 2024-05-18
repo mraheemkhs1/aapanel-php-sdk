@@ -21,11 +21,11 @@ class AaPanelClient {
 
     public function post($urlKey, $data = [])
     {
-        $auth = $this->tokenManager->generateToken();
-        $data = array_merge($data, $auth);
-        $url = ApiEndpointsManager::getURL($urlKey);
 
         try {
+            $auth = $this->tokenManager->generateToken();
+            $data = array_merge($data, $auth);
+            $url = ApiEndpointsManager::getURL($urlKey);
             $response = $this->client->post($url, [
                 'form_params' => $data,
                 'cookies' => $this->cookieJar
