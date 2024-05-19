@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use aaPanelSDK\Authentication\TokenManager;
 use aaPanelSDK\Exception\APIException;
+use InvalidArgumentException;
 
 class AaPanelClient {
     private $tokenManager;
@@ -37,8 +38,10 @@ class AaPanelClient {
             }
 
             return $responseBody;
+        } catch (InvalidArgumentException $e) {
+            throw new APIException($e->getMessage(), $e->getCode(), $e);
         } catch (RequestException $e) {
-            throw new APIException($e->getMessage());
+            throw new APIException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }
