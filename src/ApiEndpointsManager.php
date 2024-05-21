@@ -13,6 +13,8 @@ class ApiEndpointsManager
         'getSites' => '/data?action=getData&table=sites',
         'createSite' => '/site?action=AddSite',
         'deleteSite' => '/site?action=DeleteSite',
+        'getFileBody' => '/files?action=GetFileBody',
+        'saveFileBody' => '/files?action=SaveFileBody',
     ];
 
     public static function getURL($key)
