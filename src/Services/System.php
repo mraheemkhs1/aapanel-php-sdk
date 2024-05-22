@@ -28,6 +28,16 @@ class System
         return $this->client->post('getNetwork');
     }
 
+    public function getRealTimeStatus()
+    {
+        return $this->client->post('getRealTimeStatus');
+    }
+
+    public function checkInstallationTasks()
+    {
+        return $this->client->post('checkInstallationTasks');
+    }
+
     public function checkUpdate()
     {
         return $this->client->post('checkUpdate', ['check' => true]);

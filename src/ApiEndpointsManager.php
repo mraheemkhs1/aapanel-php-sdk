@@ -9,6 +9,8 @@ class ApiEndpointsManager
         'getSystemTotal' => '/system?action=GetSystemTotal',
         'getDiskInfo' => '/system?action=GetDiskInfo',
         'getNetwork' => '/system?action=GetNetWork',
+        'getRealTimeStatus' => '/system?action=GetNetWork',
+        'checkInstallationTasks' => '/ajax?action=GetTaskCount',
         'checkUpdate' => '/ajax?action=UpdatePanel',
         'getSites' => '/data?action=getData&table=sites',
         'createSite' => '/site?action=AddSite',
