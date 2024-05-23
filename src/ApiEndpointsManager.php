@@ -15,6 +15,9 @@ class ApiEndpointsManager
         'getSites' => '/data?action=getData&table=sites',
         'createSite' => '/site?action=AddSite',
         'deleteSite' => '/site?action=DeleteSite',
+        'listBackups' => '/data?action=getData&table=backup',
+        'createBackup' => '/site?action=ToBackup',
+        'deleteBackup' => '/site?action=DelBackup',
         'getFileBody' => '/files?action=GetFileBody',
         'saveFileBody' => '/files?action=SaveFileBody',
     ];
