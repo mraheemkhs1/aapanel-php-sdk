@@ -6,7 +6,6 @@ use AaPanelSDK\AaPanelClient;
 
 class System
 {
-    // System & Monitoring class to interact with the system API endpoints
     private $client;
 
     public function __construct(AaPanelClient $client)
@@ -27,16 +26,6 @@ class System
     public function getNetwork()
     {
         return $this->client->post('getNetwork');
-    }
-
-    public function getRealTimeStatus()
-    {
-        return $this->client->post('getRealTimeStatus');
-    }
-
-    public function checkInstallationTasks()
-    {
-        return $this->client->post('checkInstallationTasks');
     }
 
     public function checkUpdate()
