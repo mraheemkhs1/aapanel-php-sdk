@@ -1,8 +1,8 @@
 <?php
 
-namespace AaPanelSDK\Tests;
+namespace Mastercraft\AapanelPhpSdk\Tests;
 
-use AaPanelSDK\ApiEndpointsManager;
+use Mastercraft\AapanelPhpSdk\ApiEndpointsManager;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 

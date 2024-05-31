@@ -1,9 +1,9 @@
 <?php
 
-namespace AaPanelSDK\Tests\Services;
+namespace Mastercraft\AapanelPhpSdk\Tests\Services;
 
-use AaPanelSDK\AaPanelClient;
-use AaPanelSDK\Services\System;
+use Mastercraft\AapanelPhpSdk\AaPanelClient;
+use Mastercraft\AapanelPhpSdk\Services\System;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;

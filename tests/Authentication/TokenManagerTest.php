@@ -1,8 +1,8 @@
 <?php
 
-namespace AaPanelSDK\Tests\Authentication;
+namespace Mastercraft\AapanelPhpSdk\Tests\Authentication;
 
-use AaPanelSDK\Authentication\TokenManager;
+use Mastercraft\AapanelPhpSdk\Authentication\TokenManager;
 use PHPUnit\Framework\TestCase;
 
 class TokenManagerTest extends TestCase

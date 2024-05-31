@@ -1,10 +1,10 @@
 <?php
 
-namespace AaPanelSDK\Tests;
+namespace Mastercraft\AapanelPhpSdk\Tests;
 
-use AaPanelSDK\AaPanelClient;
-use AaPanelSDK\Authentication\TokenManager;
-use AaPanelSDK\Exception\APIException;
+use Mastercraft\AapanelPhpSdk\AaPanelClient;
+use Mastercraft\AapanelPhpSdk\Authentication\TokenManager;
+use Mastercraft\AapanelPhpSdk\Exception\APIException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;

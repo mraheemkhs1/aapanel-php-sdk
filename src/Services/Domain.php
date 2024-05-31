@@ -1,8 +1,8 @@
 <?php
 
-namespace AaPanelSDK\Services;
+namespace Mastercraft\AapanelPhpSdk\Services;
 
-use AaPanelSDK\AaPanelClient;
+use Mastercraft\AapanelPhpSdk\AaPanelClient;
 
 class Domain
 {

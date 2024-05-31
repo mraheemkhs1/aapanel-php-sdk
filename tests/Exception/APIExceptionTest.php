@@ -1,8 +1,8 @@
 <?php
 
-namespace AaPanelSDK\Tests\Exception;
+namespace Mastercraft\AapanelPhpSdk\Tests\Exception;
 
-use AaPanelSDK\Exception\APIException;
+use Mastercraft\AapanelPhpSdk\Exception\APIException;
 use PHPUnit\Framework\TestCase;
 
 class APIExceptionTest extends TestCase

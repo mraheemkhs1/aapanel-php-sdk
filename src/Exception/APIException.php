@@ -1,6 +1,6 @@
 <?php
 
-namespace AaPanelSDK\Exception;
+namespace Mastercraft\AapanelPhpSdk\Exception;
 
 use Exception;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace AaPanelSDK\Authentication;
+namespace Mastercraft\AapanelPhpSdk\Authentication;
 
 class TokenManager
 {

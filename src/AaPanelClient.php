@@ -1,11 +1,11 @@
 <?php
-namespace AaPanelSDK;
+namespace Mastercraft\AapanelPhpSdk;
 
 use \GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use aaPanelSDK\Authentication\TokenManager;
-use aaPanelSDK\Exception\APIException;
+use Mastercraft\AapanelPhpSdk\Authentication\TokenManager;
+use Mastercraft\AapanelPhpSdk\Exception\APIException;
 use InvalidArgumentException;
 
 class AaPanelClient {

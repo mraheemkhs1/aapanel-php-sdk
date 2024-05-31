@@ -1,6 +1,6 @@
 <?php
 
-namespace AaPanelSDK;
+namespace Mastercraft\AapanelPhpSdk;
 
 class ApiEndpointsManager
 {
