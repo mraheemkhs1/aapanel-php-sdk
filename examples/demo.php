@@ -39,8 +39,8 @@ print_r($sites);
 
 // Create a new site
 $newSite = $website->createSite([
-    'webname' => '{"domain":"example->com","domainlist":[],"count":0}',
-    'path' => '/www/wwwroot/example->com',
+    'webname' => '{"domain":"example.com","domainlist":[],"count":0}',
+    'path' => '/www/wwwroot/example.com',
     'type_id' => 0,
     'type' => 'PHP',
     'version' => '72',
@@ -56,28 +56,34 @@ $newSite = $website->createSite([
 ]);
 print_r($newSite);
 
+// Delete a site
+$siteId = 66;
+$deletedSite = $website->deleteSite($siteId, 'example.com');
+print_r($deletedSite);
+
 // List backups for a site
-$backups = $backup->listBackups(66);
+$backups = $backup->listBackups($siteId);
 print_r($backups);
 
 // Create a new backup
-$newBackup = $backup->createBackup(66);
+$newBackup = $backup->createBackup($siteId);
 print_r($newBackup);
 
 // Delete a backup
-$deletedBackup = $backup->deleteBackup(121);
+$backupId = 121;
+$deletedBackup = $backup->deleteBackup($backupId);
 print_r($deletedBackup);
 
 // List domains for a site
-$domains = $domain->listDomains(66);
+$domains = $domain->listDomains($siteId);
 print_r($domains);
 
 // Add a new domain to a site
-$newDomain = $domain->addDomain(66, ['webname' => 'w2->hao->com', 'domain' => 'w4->hao->com:81']);
+$newDomain = $domain->addDomain($siteId, ['webname' => 'w2->hao->com', 'domain' => 'w4->hao->com:81']);
 print_r($newDomain);
 
 // Delete a domain from a site
-$deletedDomain = $domain->deleteDomain(66, ['webname' => 'w2->hao->com', 'domain' => 'w4->hao->com', 'port' => 80]);
+$deletedDomain = $domain->deleteDomain($siteId, ['webname' => 'w2->hao->com', 'domain' => 'w4->hao->com', 'port' => 80]);
 print_r($deletedDomain);
 
 // Get pseudo-static rewrite list
@@ -93,7 +99,8 @@ $savedRewriteRule = $pseudoStatic->saveRewriteRule('/www/server/panel/vhost/rewr
 print_r($savedRewriteRule);
 
 // Get logs
-$logs = $log->getLogs(10);
+$logLimit = 10;
+$logs = $log->getLogs($logLimit);
 print_r($logs);
 
 // Get real-time status
