@@ -2,18 +2,22 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use AaPanelSDK\AaPanelClient;
-use AaPanelSDK\Services\System;
-use AaPanelSDK\Services\Website;
-use AaPanelSDK\Services\Files;
-use AaPanelSDK\Services\Monitoring;
-use AaPanelSDK\Services\Backup;
-use AaPanelSDK\Services\Domain;
-use AaPanelSDK\Services\PseudoStatic;
-use AaPanelSDK\Services\Log;
+use Mastercraft\AapanelPhpSdk\AaPanelClient;
+use Mastercraft\AapanelPhpSdk\Services\System;
+use Mastercraft\AapanelPhpSdk\Services\Website;
+use Mastercraft\AapanelPhpSdk\Services\Files;
+use Mastercraft\AapanelPhpSdk\Services\Monitoring;
+use Mastercraft\AapanelPhpSdk\Services\Backup;
+use Mastercraft\AapanelPhpSdk\Services\Domain;
+use Mastercraft\AapanelPhpSdk\Services\PseudoStatic;
+use Mastercraft\AapanelPhpSdk\Services\Log;
+use Dotenv\Dotenv;
 
-$baseUri = 'https://your-aapanel-url';
-$apiKey = 'your-api-key';
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+
+$baseUri = $_ENV['AAPANEL_URL'];
+$apiKey = $_ENV['AAPANEL_API_KEY'];
 
 $client = new AaPanelClient($baseUri, $apiKey);
 $system = new System($client);

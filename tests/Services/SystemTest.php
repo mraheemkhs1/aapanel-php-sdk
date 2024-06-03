@@ -5,23 +5,24 @@ namespace Mastercraft\AapanelPhpSdk\Tests\Services;
 use Mastercraft\AapanelPhpSdk\AaPanelClient;
 use Mastercraft\AapanelPhpSdk\Services\System;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
+use Dotenv\Dotenv;
 
 class SystemTest extends TestCase
 {
+    private $apiKey;
+    private $baseUri;
+    
+    protected function setUp(): void
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../..');
+        $dotenv->safeLoad();
+        $this->apiKey = $_ENV['AAPANEL_API_KEY'];
+        $this->baseUri = $_ENV['AAPANEL_URL'];
+    }
+
     public function testGetSystemTotal()
     {
-        // $mock = new MockHandler([
-        //     new Response(200, [], json_encode(['cpuRealUsed' => 0.85])),
-        // ]);
-        // $handlerStack = HandlerStack::create($mock);
-        // $client = new Client(['handler' => $handlerStack]);
-        $apiKey = 'test_api_key';
-
-        $aaPanelClient = new AaPanelClient('https://your-aapanel-url', $apiKey);
+        $aaPanelClient = new AaPanelClient($this->baseUri, $this->apiKey);
         $system = new System($aaPanelClient);
         $response = $system->getSystemTotal();
 
@@ -30,9 +31,7 @@ class SystemTest extends TestCase
 
     public function testGetDiskInfo()
     {
-        $apiKey = 'test_api_key';
-
-        $aaPanelClient = new AaPanelClient('https://your-aapanel-url', $apiKey);
+        $aaPanelClient = new AaPanelClient($this->baseUri, $this->apiKey);
         $system = new System($aaPanelClient);
         $response = $system->getDiskInfo();
 

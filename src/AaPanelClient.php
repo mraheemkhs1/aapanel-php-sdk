@@ -1,7 +1,7 @@
 <?php
 namespace Mastercraft\AapanelPhpSdk;
 
-use \GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Mastercraft\AapanelPhpSdk\Authentication\TokenManager;
@@ -27,6 +27,11 @@ class AaPanelClient {
             $auth = $this->tokenManager->generateToken();
             $data = array_merge($data, $auth);
             $url = ApiEndpointsManager::getURL($urlKey);
+        } catch (InvalidArgumentException $e) {
+            throw new APIException("Invalid API endpoint key: " . $urlKey, $e->getCode(), $e);
+        }
+
+        try {
             $response = $this->client->post($url, [
                 'form_params' => $data,
                 'cookies' => $this->cookieJar
@@ -38,8 +43,6 @@ class AaPanelClient {
             }
 
             return $responseBody;
-        } catch (InvalidArgumentException $e) {
-            throw new APIException($e->getMessage(), $e->getCode(), $e);
         } catch (RequestException $e) {
             throw new APIException($e->getMessage(), $e->getCode(), $e);
         }

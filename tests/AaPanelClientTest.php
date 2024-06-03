@@ -3,27 +3,26 @@
 namespace Mastercraft\AapanelPhpSdk\Tests;
 
 use Mastercraft\AapanelPhpSdk\AaPanelClient;
-use Mastercraft\AapanelPhpSdk\Authentication\TokenManager;
 use Mastercraft\AapanelPhpSdk\Exception\APIException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
 use PHPUnit\Framework\TestCase;
+use Dotenv\Dotenv;
 
 class AaPanelClientTest extends TestCase
 {
+    private $apiKey;
+    private $baseUri;
+
+    protected function setUp(): void
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__.'/..');
+        $dotenv->safeLoad();
+        $this->apiKey = $_ENV['AAPANEL_API_KEY'];
+        $this->baseUri = $_ENV['AAPANEL_URL'];
+    }
+
     public function testPost()
     {
-        $mock = new MockHandler([
-            new Response(200, [], json_encode(['status' => 'success'])),
-        ]);
-        $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
-        $apiKey = 'test_api_key';
-        $tokenManager = new TokenManager($apiKey);
-
-        $aaPanelClient = new AaPanelClient('https://your-aapanel-url', $apiKey);
+        $aaPanelClient = new AaPanelClient($this->baseUri, $this->apiKey);
         $response = $aaPanelClient->post('getSystemTotal');
 
         $this->assertEquals(['status' => 'success'], $response);
@@ -32,8 +31,8 @@ class AaPanelClientTest extends TestCase
     public function testPostInvalidEndpoint()
     {
         $this->expectException(APIException::class);
-
-        $aaPanelClient = new AaPanelClient('https://your-aapanel-url', 'test_api_key');
+        
+        $aaPanelClient = new AaPanelClient($this->baseUri, $this->apiKey);
         $aaPanelClient->post('invalidKey');
     }
 }
