@@ -210,16 +210,13 @@ print_r($sslStatus);
 
 // Apply for ssl certificate
 $certStatus = $ssl->applyForCertificate([
-    'type' => 1
-    'siteName' => $data['webName']
-    'key' => $data['key'] // from $response->private_key of $this->applyForCertificate()
-    'csr' => $data['csr'] // from $response->cert . '\n' .$response->root of $this->applyForCertificate()
+    'domains' => ['example.com', 'example2.com'],
+    'id' => $siteId,
 ]);
 print_r($certStatus);
 
 // Enable new ssl certificate
 $sslStatus = $ssl->enableSsl([
-    'type' => 1,
     'siteName' => $data['webName'],
     'key' => $data['key'],
     'csr' => $data['csr'],
@@ -305,12 +302,34 @@ Using the `Domain` Service, call the `addDomain($siteId, $domain);` method.
 ```
 
 ### How to get ssl for new domain or url
-This process relies heavily on the `Ssl`, `Domain` and `System` Service.
+This process relies heavily on the `Ssl`, `Domain` and `System` Service, you can also refer to the [SSL Example/Demo Script](./examples/ssl-example.php).
 - Add the new domain to the website, check the reference on [How to add new domain or url to existing websites](#How-to-add-new-domain-or-url-to-existing-websites) to do that.
 - Call the [System Class](#system-service) method to Get Auto Restart Rph action >>> `getAutoRestartRph($webname);`.
 - Call the [System Class](#system-service) method to perform Auto Restart Rph action >>> `autoRestartRph($webname);`.
-- Call the [Ssl Class](#ssl-service) method to apply for new domain's certificate
-- Call the [Ssl Class](#ssl-service) method to set/enable the ssl certificate
+- Call the [Ssl Class](#ssl-service) method to apply for new domain's certificate >>> `applyForCertificate([
+    'domains' => ['example.com', 'example2.com'], // list of domain(s) to issue ssl certificate to
+    'id' => $siteId,
+]);`
+<small>
+NOTE: In order to get $siteId, check the reference on [How to retrieve list of all existing websites](#How-to-retrieve-list-of-all-existing-websites)
+</small>
+- Call the [Ssl Class](#ssl-service) method to set/enable the ssl certificate >>> `enableSsl([
+    'siteName' => $data['webName'],
+    'key' => $data['key'],
+    'csr' => $data['csr'],
+]);`
+<small>
+NOTE: Parameters in the data option to enable Ssl are retrieved from the response received from applying for certificate
+```php
+$certStatus = $ssl->applyForCertificate([
+    'domains' => ['example.com', 'example2.com'],
+    'id' => $siteId,
+]);`
+
+$data['key'] = $certStatus->private_key;
+$data['csr'] = $certStatus->cert . '\n' . $certStatus->root;
+```
+</small>
 
 ## Running Tests
 

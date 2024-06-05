@@ -52,10 +52,10 @@ class Ssl
         */
         return $this->client->post('applyForletsEncryptCert', [
             'domains' => $data['domains'],
-            'auth_type' => $data['auth_type'],
-            'auth_to' => $data['auth_to'],
-            'auto_wildcard' => $data['auto_wildcard'],
-            'id' => $data['siteId']
+            'id' => $data['siteId'],
+            'auth_type' => 'http',
+            'auth_to' => 2,
+            'auto_wildcard' => 0,
         ]);
     }
 
@@ -94,7 +94,7 @@ class Ssl
             ];
         */
         return $this->client->post('setSslCert', [
-            'type' => $data['type'],
+            'type' => 1,
             'siteName' => $data['webName'],
             'key' => $data['key'],
             'csr' => $data['csr']
