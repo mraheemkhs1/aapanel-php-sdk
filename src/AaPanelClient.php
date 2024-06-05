@@ -20,7 +20,7 @@ class AaPanelClient {
         $this->cookieJar = new CookieJar();
     }
 
-    public function post($urlKey, $data = [])
+    public function post($urlKey, $data = [], $verifySsl = false)
     {
 
         try {
@@ -34,7 +34,8 @@ class AaPanelClient {
         try {
             $response = $this->client->post($url, [
                 'form_params' => $data,
-                'cookies' => $this->cookieJar
+                'cookies' => $this->cookieJar,
+                'verify' => $verifySsl
             ]);
             $responseBody = json_decode($response->getBody(), true);
 
