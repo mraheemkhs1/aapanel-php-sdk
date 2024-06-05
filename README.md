@@ -13,6 +13,9 @@ A PHP SDK for interacting with the aaPanel API. This SDK provides convenient met
   - [Domain Service](#domain-service)
   - [Pseudo-Static Service](#pseudo-static-service)
   - [Log Service](#log-service)
+- ['How To' Guides](#'How-To'-Guides)
+  - [How to retrieve list of all existing websites](#How-to-retrieve-list-of-all-existing-websites)
+  - [How to add new domain or url to existing websites](#How-to-add-new-domain-or-url-to-existing-websites)
 - [Running Tests](#running-tests)
 - [Contributing](#contributing)
 - [License](#license)
@@ -198,6 +201,45 @@ $log = new Log($client);
 $logLimit = 10;
 $logs = $log->getLogs($logLimit);
 print_r($logs);
+```
+
+## 'How To' Guides
+This section contains directions and explanations on how to perform certain actions
+
+### How to retrieve list of all existing websites
+Using the `Website` Service, call the `getSites();` method.
+Additional parameters (`$page` and `$limit`) can be passed for filtering and pagination
+<b>Response:</b>
+```json
+{
+    "where",
+    "page",
+    "data": [
+        {
+            "id",
+            "name",
+            "path",
+            "status",
+            "domain",
+            ...
+        },
+        ...
+    ],
+    "search_history",
+    "net_flow_info"
+}
+```
+### How to add new domain or url to existing websites
+Using the `Domain` Service, call the `addDomain($siteId, $domain);` method.
+<b>Parameters:</b>
+- `$siteId:` is a unique identifier for the website that this new domain will be pointing to, in order to get the`$siteId`, check the reference on [How to retrieve list of all existing websites](#How-to-retrieve-list-of-all-existing-websites)
+- `$domain:` is an array that holds the `webname` of the site we want to point to and `domain` is the new url we are adding. 
+<b>Response:</b>
+```json
+{
+    "status",
+    "message"
+}
 ```
 
 ## Running Tests

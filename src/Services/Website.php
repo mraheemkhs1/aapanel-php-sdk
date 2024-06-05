@@ -14,7 +14,7 @@ class Website
         $this->client = $client;
     }
 
-    public function getSites($page = 1, $limit = 15)
+    public function getSites($page = 1, $limit = 10)
     {
         return $this->client->post('getSites', [
             'p' => $page,
