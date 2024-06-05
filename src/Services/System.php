@@ -32,4 +32,16 @@ class System
     {
         return $this->client->post('checkUpdate', ['check' => true]);
     }
+
+    public function getAutoRestartRph($webname)
+    {
+        // Rph => redirect, proxy, and http=>https
+        return $this->client->post('getRestartRph', ['sitename' => $webname]);
+    }
+
+    public function autoRestartRph($webname)
+    {
+        // Rph => redirect, proxy, and http=>https
+        return $this->client->post('restartRph', ['sitename' => $webname]);
+    }
 }

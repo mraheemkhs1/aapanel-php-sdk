@@ -11,6 +11,7 @@ A PHP SDK for interacting with the aaPanel API. This SDK provides convenient met
   - [Website Service](#website-service)
   - [Backup Service](#backup-service)
   - [Domain Service](#domain-service)
+  - [Ssl Service](#ssl-service)
   - [Pseudo-Static Service](#pseudo-static-service)
   - [Log Service](#log-service)
 - ['How To' Guides](#'How-To'-Guides)
@@ -81,6 +82,15 @@ print_r($networkStatus);
 // Check for updates
 $updateStatus = $system->checkUpdate();
 print_r($updateStatus);
+
+// Get Auto Restart Rph
+$webname = "www.abc.com";
+$rphStatus = $system->getAutoRestartRph($webname);
+print_r($rphStatus);
+
+// Auto Restart Rph
+$rphStatus = $system->autoRestartRph($webname);
+print_r($rphStatus);
 ```
 
 ### Website Service
@@ -157,6 +167,10 @@ $domain = new Domain($client);
 $domains = $domain->listDomains($siteId);
 print_r($domains);
 
+// List domains for a site
+$domains = $domain->getSiteDomains($siteId);
+print_r($domains);
+
 // Add a new domain to a site
 $newDomain = $domain->addDomain($siteId, ['webname' => 'example.com', 'domain' => 'new.example.com']);
 print_r($newDomain);
@@ -164,6 +178,54 @@ print_r($newDomain);
 // Delete a domain from a site
 $deletedDomain = $domain->deleteDomain($siteId, ['webname' => 'example.com', 'domain' => 'new.example.com', 'port' => 80]);
 print_r($deletedDomain);
+```
+
+### Ssl Service
+The `Ssl` service allows you to manage SSL certificates with Let's Encrypt and other available providers.
+
+```php
+use Mastercraft\AapanelPhpSdk\Services\Ssl;
+
+$ssl = new Ssl($client);
+
+// Retrieve ssl information
+$sslInfo = $ssl->getSslData();
+print_r($sslInfo);
+
+// Retrieve ssl certificates
+$sslCerts = $ssl->getSslCertificates();
+print_r($sslCerts);
+
+// Retrieve Let's Encrypt Account Info
+$letsEncrypt = $ssl->getLetsEncryptInfo();
+print_r($letsEncrypt);
+
+// Retrieve Registered Panel User (SSL Account) Info
+$registeredSslUser = $ssl->getRegisteredUserInfo();
+print_r($registeredSslUser);
+
+// Disable current ssl
+$sslStatus = $ssl->disableSsl($webname);
+print_r($sslStatus);
+
+// Apply for ssl certificate
+$certStatus = $ssl->applyForCertificate([
+    'type' => 1
+    'siteName' => $data['webName']
+    'key' => $data['key'] // from $response->private_key of $this->applyForCertificate()
+    'csr' => $data['csr'] // from $response->cert . '\n' .$response->root of $this->applyForCertificate()
+]);
+print_r($certStatus);
+
+// Enable new ssl certificate
+$sslStatus = $ssl->enableSsl([
+    'type' => 1,
+    'siteName' => $data['webName'],
+    'key' => $data['key'],
+    'csr' => $data['csr'],
+]);
+print_r($sslStatus);
+
 ```
 
 ### Pseudo-Static Service
@@ -199,7 +261,7 @@ $log = new Log($client);
 
 // Get logs
 $logLimit = 10;
-$logs = $log->getLogs($logLimit);
+$logs = $log->getRealtimeLog($logPath);
 print_r($logs);
 ```
 
@@ -238,9 +300,17 @@ Using the `Domain` Service, call the `addDomain($siteId, $domain);` method.
 ```json
 {
     "status",
-    "message"
+    "msg"
 }
 ```
+
+### How to get ssl for new domain or url
+This process relies heavily on the `Ssl`, `Domain` and `System` Service.
+- Add the new domain to the website, check the reference on [How to add new domain or url to existing websites](#How-to-add-new-domain-or-url-to-existing-websites) to do that.
+- Call the [System Class](#system-service) method to Get Auto Restart Rph action >>> `getAutoRestartRph($webname);`.
+- Call the [System Class](#system-service) method to perform Auto Restart Rph action >>> `autoRestartRph($webname);`.
+- Call the [Ssl Class](#ssl-service) method to apply for new domain's certificate
+- Call the [Ssl Class](#ssl-service) method to set/enable the ssl certificate
 
 ## Running Tests
 

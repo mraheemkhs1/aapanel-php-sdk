@@ -18,6 +18,11 @@ class Domain
         return $this->client->post('listDomains', ['search' => $siteId, 'list' => true]);
     }
 
+    public function getSiteDomains($siteId)
+    {
+        return $this->client->post('siteDomains', ['id' => $siteId]);
+    }
+
     public function addDomain($siteId, $domain)
     {
         return $this->client->post('addDomain', [
