@@ -27,6 +27,8 @@ class AaPanelClient {
             $auth = $this->tokenManager->generateToken();
             $data = array_merge($data, $auth);
             $url = ApiEndpointsManager::getURL($urlKey);
+            echo "Request URL: " . $this->client->getConfig('base_uri') . $url . "\n"; // Debugging line
+            echo "Request Data: " . json_encode($data) . "\n"; // Debugging line
         } catch (InvalidArgumentException $e) {
             throw new APIException("Invalid API endpoint key: " . $urlKey, $e->getCode(), $e);
         }

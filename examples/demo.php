@@ -30,8 +30,8 @@ $pseudoStatic = new PseudoStatic($client);
 $log = new Log($client);
 
 // Get system info
-$systemInfo = $system->getSystemTotal();
-print_r($systemInfo);
+// $systemInfo = $system->getSystemTotal();
+// print_r($systemInfo);
 
 // Get list of sites
 $sites = $website->getSites();
