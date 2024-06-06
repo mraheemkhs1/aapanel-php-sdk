@@ -20,4 +20,16 @@ class TokenManager
             'request_token' => $requestToken
         ];
     }
+
+    public function userLogin($username, $password)
+    {
+        $requestTime = time();
+        $requestToken = md5($requestTime . md5($this->apiKey));
+        return [
+            'request_time' => $requestTime,
+            'request_token' => $requestToken,
+            'username' => $username,
+            'password' => $password
+        ];
+    }
 }

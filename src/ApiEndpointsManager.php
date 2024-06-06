@@ -30,7 +30,7 @@ class ApiEndpointsManager
         'getSslList' => '/site?action=GetSSL',
         'getDeployedSslCertificates' => '/ssl?action=GetCertList',
         'letsEncryptInfo' => '/acme?action=get_account_info',
-        'applyForletsEncryptCert' => '/acme?action=apply_cert_api',
+        'applyCert' => '/acme?action=apply_cert_api',
         'getLineLog' => '/ajax?action=get_lines',
         'disableSsl' => '/site?action=CloseSSLConf',
         'setSslCert' => '/site?action=SetSSL',

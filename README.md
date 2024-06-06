@@ -314,7 +314,7 @@ This process relies heavily on the `Ssl`, `Domain` and `System` Service, you can
 NOTE: In order to get $siteId, check the reference on [How to retrieve list of all existing websites](#How-to-retrieve-list-of-all-existing-websites)
 </small>
 - Call the [Ssl Class](#ssl-service) method to set/enable the ssl certificate >>> `enableSsl([
-    'siteName' => $data['webName'],
+    'siteName' => $data['webname'],
     'key' => $data['key'],
     'csr' => $data['csr'],
 ]);`
@@ -326,10 +326,11 @@ $certStatus = $ssl->applyForCertificate([
     'id' => $siteId,
 ]);`
 
-$data['key'] = $certStatus->private_key;
-$data['csr'] = $certStatus->cert . '\n' . $certStatus->root;
+$data['key'] = $certStatus['private_key'];
+$data['csr'] = $certStatus['cert'] . ' ' . $certStatus['root'];
 ```
 </small>
+- Call the [Ssl Class](#ssl-service) method to `getSslData()` and `getSslCertificates()` to check records and confirm ssl certificate setup
 
 ## Running Tests
 

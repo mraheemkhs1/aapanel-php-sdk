@@ -28,6 +28,19 @@ class Ssl
         return $this->client->post('letsEncryptInfo');
     }
 
+    private function formatDomainList($domainList) {
+        $result = '[';
+        $lastIndex = count($domainList) - 1;
+        foreach ($domainList as $index => $domain) {
+            $result .= '"' . $domain['name']  .'"';
+            if ($index !== $lastIndex) {
+                $result .= ', ';
+            }
+        }
+        $result .= ']';
+        return $result;
+    }
+
     public function applyForCertificate($data)
     {
         /*
@@ -50,12 +63,13 @@ class Ssl
                 status: true,
             ];
         */
-        return $this->client->post('applyForletsEncryptCert', [
-            'domains' => $data['domains'],
+        $domainList = $this->formatDomainList($data['domains'][0]);
+        return $this->client->post('applyCert', [
+            'domains' => $domainList,
             'id' => $data['siteId'],
+            'auth_to' => $data['siteId'],
             'auth_type' => 'http',
-            'auth_to' => 2,
-            'auto_wildcard' => 0,
+            'auto_wildcard' => '0',
         ]);
     }
 
@@ -78,8 +92,8 @@ class Ssl
             * $data = [
             *      'type' => 1
             *      'siteName' => $data['webName']
-            *      'key' => $data['key'] // from $response->private_key of $this->applyForCertificate()
-            *      'csr' => $data['csr'] // from $response->cert . '\n' .$response->root of $this->applyForCertificate()
+            *      'key' => $data['key'] // from $response['private_key'] of $this->applyForCertificate()
+            *      'csr' => $data['csr'] // from $response['cert'] . ' ' .$response['root'] of $this->applyForCertificate()
             * ];
 
             * $response = [
@@ -95,7 +109,7 @@ class Ssl
         */
         return $this->client->post('setSslCert', [
             'type' => 1,
-            'siteName' => $data['webName'],
+            'siteName' => $data['webname'],
             'key' => $data['key'],
             'csr' => $data['csr']
         ]);
