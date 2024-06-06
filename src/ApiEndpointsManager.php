@@ -31,6 +31,7 @@ class ApiEndpointsManager
         'getDeployedSslCertificates' => '/ssl?action=GetCertList',
         'letsEncryptInfo' => '/acme?action=get_account_info',
         'applyCert' => '/acme?action=apply_cert_api',
+        'dnsAuth' => '/acme?action=apply_dns_auth',
         'getLineLog' => '/ajax?action=get_lines',
         'disableSsl' => '/site?action=CloseSSLConf',
         'setSslCert' => '/site?action=SetSSL',
