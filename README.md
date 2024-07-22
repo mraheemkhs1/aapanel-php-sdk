@@ -320,16 +320,16 @@ NOTE: In order to get $siteId, check the reference on [How to retrieve list of a
 ]);`
 <small>
 NOTE: Parameters in the data option to enable Ssl are retrieved from the response received from applying for certificate
+</small>
 ```php
 $certStatus = $ssl->applyForCertificate([
     'domains' => ['example.com', 'example2.com'],
     'id' => $siteId,
-]);`
+]);
 
 $data['key'] = $certStatus['private_key'];
 $data['csr'] = $certStatus['cert'] . ' ' . $certStatus['root'];
 ```
-</small>
 - Call the [Ssl Class](#ssl-service) method to `getSslData()` and `getSslCertificates()` to check records and confirm ssl certificate setup
 
 ## Running Tests

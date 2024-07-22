@@ -34,15 +34,15 @@ class Ssl
         }, $domainList);
         $reindexedResult = array_values($result);
         return json_encode($reindexedResult);
-    }   
+    }
 
     public function applyForCertificate($data)
     {
         /*
             * $data = [
             *      'domains' => ['example.com', 'example2.com']
-            *      'auth_type' => 'http'
-            *      'auth_to' => 2
+            *      'auth_type' => 'http' || 'dns'
+            *      'auth_to' => 2 || 'dns'
             *      'auto_wildcard' => 0 => false || 1 => true
             *      'id' => $siteId
             * ];
@@ -58,13 +58,27 @@ class Ssl
                 status: true,
             ];
         */
-        $domainList = $this->formatDomainList($data['domains'][0]);
+        $domainString = implode(", ", $data['domains'][0]);
+        $test = [["name" => "storedev.top", "id" => "2"], ["name" => "dev-kuhstomshop.com", "id" => "3"]];
         return $this->client->post('applyCert', [
-            'domains' => $domainList,
+            // 'domains' => $this->formatDomainList($data['domains'][0]),
+            'domains' => $this->formatDomainList($test),
             'id' => $data['siteId'],
             'auth_to' => $data['siteId'],
             'auth_type' => 'http',
             'auto_wildcard' => '0',
+        ]);
+    }
+
+    public function verifyDns($data)
+    {
+        /*
+            * $data = [
+                index: 7dd2b405c59ed5fc34ba9a91b23cd260 // from $this->applyForCertificate($data)['index']
+            ]
+        */
+        return $this->client->post('dnsAuth', [
+            'index' => $data['index']
         ]);
     }
 
