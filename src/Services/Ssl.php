@@ -29,17 +29,12 @@ class Ssl
     }
 
     private function formatDomainList($domainList) {
-        $result = '[';
-        $lastIndex = count($domainList) - 1;
-        foreach ($domainList as $index => $domain) {
-            $result .= '"' . $domain['name']  .'"';
-            if ($index !== $lastIndex) {
-                $result .= ', ';
-            }
-        }
-        $result .= ']';
-        return $result;
-    }
+        $result = array_map(function($domain) {
+            return $domain['name'];
+        }, $domainList);
+        $reindexedResult = array_values($result);
+        return json_encode($reindexedResult);
+    }   
 
     public function applyForCertificate($data)
     {
